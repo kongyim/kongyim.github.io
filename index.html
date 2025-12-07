@@ -1,3 +1,42 @@
-<a href="/countries">Name Every Country</a>
-<a href="/cribbage">Cribbage</a>
-<a href="/mahjong">Mahjong</a>
+<head>
+  <style>
+   /* Container aligned at top + centered horizontally */
+  .top-buttons {
+    width: 100%;
+    text-align: center;
+    margin-top: 2rem; /* space from top */
+  }
+
+  /* Button styling */
+  .menu-btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    margin: 0.4rem;
+    background: #f6f7f9;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    font-family: system-ui, sans-serif;
+    font-size: 1rem;
+    transition: all 0.25s ease;
+  }
+
+  /* Hover effect */
+  .menu-btn:hover {
+    background: #e7ecf5;
+    border-color: #a6b7d3;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+  }
+
+
+
+  </style>
+</head>
+
+<div class="top-buttons">
+  <a href="/countries" class="menu-btn">Name Every Country</a>
+  <a href="/cribbage" class="menu-btn">Cribbage</a>
+  <a href="/mahjong" class="menu-btn">Mahjong</a>
+</div>
