@@ -1,25 +1,36 @@
 <head>
   <style>
-   /* Container aligned at top + centered horizontally */
+  /* Container aligned at top + centered horizontally */
   .top-buttons {
     width: 100%;
-    text-align: center;
-    margin-top: 2rem; /* space from top */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 1rem;
   }
 
   /* Button styling */
   .menu-btn {
     display: inline-block;
-    padding: 0.6rem 1.2rem;
-    margin: 0.4rem;
+    width: min(90vw, 420px);
+    padding: 1.2rem 1.6rem;
     background: #f6f7f9;
     border: 1px solid #d0d0d0;
     border-radius: 8px;
     text-decoration: none;
     color: #333;
     font-family: system-ui, sans-serif;
-    font-size: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
     transition: all 0.25s ease;
+  }
+  .menu-icon {
+    display: inline-block;
+    margin-right: 0.6rem;
+    font-size: 1.4rem;
+    vertical-align: -0.1rem;
   }
 
   /* Hover effect */
@@ -45,7 +56,7 @@
 </head>
 
 <div class="top-buttons">
-  <a href="/countries" class="menu-btn">Name Every Country</a>
-  <a href="/cribbage" class="menu-btn">Cribbage</a>
-  <a href="/mahjong" class="menu-btn">Mahjong</a>
+  <a href="/countries" class="menu-btn"><span class="menu-icon">🌍</span>Name Every Country</a>
+  <a href="/cribbage" class="menu-btn"><span class="menu-icon">🂡</span>Cribbage</a>
+  <a href="/mahjong" class="menu-btn"><span class="menu-icon">🀄️</span>Mahjong</a>
 </div>
