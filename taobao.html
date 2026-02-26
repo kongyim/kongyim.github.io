@@ -130,7 +130,7 @@
         const btn = document.createElement("button");
         btn.className = "copyBtn";
         btn.textContent = "Copy";
-        btn.addEventListener("click", () => copyText(toBlock(it)));
+        btn.addEventListener("click", () => copyText(it.name));
 
         row.appendChild(meta);
         row.appendChild(btn);
