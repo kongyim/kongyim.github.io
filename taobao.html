@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-HK">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Click & Copy List</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans HK", "PingFang HK", "Microsoft JhengHei", Arial, sans-serif; margin: 24px; }
+    h1 { font-size: 20px; margin: 0 0 12px; }
+    .hint { color: #555; margin: 0 0 16px; font-size: 14px; }
+    .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 18px; }
+    button { padding: 10px 12px; border: 1px solid #ddd; background: #fff; border-radius: 10px; cursor: pointer; }
+    button:active { transform: translateY(1px); }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    @media (min-width: 720px) { .grid { grid-template-columns: 1fr 1fr; } }
+    .card { border: 1px solid #eee; border-radius: 14px; padding: 12px; box-shadow: 0 1px 6px rgba(0,0,0,.05); }
+    .row { display:flex; gap: 10px; align-items: start; }
+    .meta { flex: 1; }
+    .id { font-weight: 700; font-size: 14px; }
+    .name { margin-top: 6px; line-height: 1.35; white-space: pre-wrap; }
+    .copyBtn { white-space: nowrap; }
+    .toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); background: rgba(0,0,0,.82); color: #fff; padding: 10px 14px; border-radius: 999px; font-size: 14px; opacity: 0; pointer-events: none; transition: opacity .18s ease; }
+    .toast.show { opacity: 1; }
+    .search { width: 100%; max-width: 520px; padding: 10px 12px; border: 1px solid #ddd; border-radius: 12px; }
+    .small { font-size: 12px; color: #666; margin-top: 8px; }
+    textarea { width: 100%; height: 120px; border: 1px solid #ddd; border-radius: 12px; padding: 10px 12px; }
+  </style>
+</head>
+<body>
+  <h1>產品清單（Click → Copy）</h1>
+  <p class="hint">按「Copy」就會複製該 item（ID + 名稱），可直接貼去 WhatsApp。</p>
+
+  <div class="toolbar">
+    <input id="search" class="search" placeholder="搜尋：輸入關鍵字 / ID" />
+    <button id="copyAll">Copy 全部（用空行分隔）</button>
+  </div>
+
+  <div class="small">提示：如果對方只想 copy 單件，用每張卡右邊個 Copy 就得。</div>
+
+  <div id="list" class="grid"></div>
+
+  <h2 style="font-size:16px;margin:22px 0 8px;">全部內容預覽（可選擇性用）</h2>
+  <div class="hint">下面係同一份資料合併版（每件空一行）。你亦可以直接 Copy 全部。</div>
+  <textarea id="allText" readonly></textarea>
+
+  <div id="toast" class="toast">Copied ✅</div>
+
+  <script>
+    // ==== 你的資料（可自行增減）====
+    const items = [
+      { id: "78580003405510", name: "三代飞度倒车取电倒车影像雷达改装线" },
+      { id: "78983592163391", name: "14-18新飞度专用阅读灯 GK5内饰改装LED车顶灯高亮氛围灯" },
+      { id: "JT5460091816481", name: "本田飞度杰德奥德赛CRV 记录仪倒车摄像头牌照灯支架外壳底座灯罩" },
+      { id: "465116312621967", name: "汽车线束绒布胶带发动机舱专用耐高温绝缘胶布车内静音胶布电工粘" },
+      { id: "JT5460123935684", name: "红黑线平行线汽车喇叭线1.5平方电线2芯软线音响线LED监控电源线" },
+      { id: "465116787983623", name: "汽车冰蓝后备箱照明氛围灯尾箱灯带车内改装led免接线自动感应12V" },
+      { id: "465114378347001", name: "吸盘厨房挂钩挂杆免打孔厨房置物架锅铲勺子一体挂架壁挂式置物架" },
+      { id: "YT8843022388175", name: "适用2025款本田飞度车内装饰用品改装后备箱挡板收纳储物盒隔物板" },
+      { id: "9814032248222", name: "断丝取出器万能取断螺丝取丝器反滑丝牙反牙拆除神器攻丝钻头拆卸" },
+      { id: "777384590575786", name: "适用于本田凌派飞度雅阁思域中控导航面板仪表卡扣锋范CRV奥德赛" },
+      { id: "YT8843662940074", name: "汽车玻璃油膜玻璃去除四季强力防起车用神器视野清晰镀膜清洁刷" },
+      { id: "YT8843847470745", name: "三代百变大屏导航套框 新飞度14-18款9寸 改装支架面框面板" },
+      { id: "JT5460825176242", name: "502胶水强力胶万能胶快干胶家用修补胶水多功能手工胶99%材质可粘" },
+      { id: "JT5460674373083", name: "新款美发自助理发器梳男士平头推剪发廊理发店专用" },
+      { id: "465113947049192", name: "空调密封泥管道封堵泥家用补墙洞防水防虫下水道防臭味堵孔泥" },
+      { id: "777385553329614", name: "特加厚热缩管绝缘套管DIY数据线耳机修复保护套家用阻燃热收缩管" },
+      // 重覆嘅 item（你原本資料有兩次），保留都OK；想去重就刪一條
+      { id: "JT5460123935684", name: "红黑线平行线汽车喇叭线1.5平方电线2芯软线音响线LED监控电源线" },
+    ];
+
+    const elList = document.getElementById("list");
+    const elToast = document.getElementById("toast");
+    const elSearch = document.getElementById("search");
+    const elAllText = document.getElementById("allText");
+
+    const toBlock = (item) => `${item.id}\n${item.name}`;
+
+    function showToast(text="Copied ✅") {
+      elToast.textContent = text;
+      elToast.classList.add("show");
+      setTimeout(() => elToast.classList.remove("show"), 900);
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast();
+      } catch (e) {
+        // fallback: select textarea to copy
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        showToast("Copied ✅ (fallback)");
+      }
+    }
+
+    function render(filter="") {
+      elList.innerHTML = "";
+      const q = filter.trim().toLowerCase();
+
+      const filtered = items.filter(it => {
+        if (!q) return true;
+        return (it.id.toLowerCase().includes(q) || it.name.toLowerCase().includes(q));
+      });
+
+      filtered.forEach((it) => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const row = document.createElement("div");
+        row.className = "row";
+
+        const meta = document.createElement("div");
+        meta.className = "meta";
+
+        const id = document.createElement("div");
+        id.className = "id";
+        id.textContent = it.id;
+
+        const name = document.createElement("div");
+        name.className = "name";
+        name.textContent = it.name;
+
+        meta.appendChild(id);
+        meta.appendChild(name);
+
+        const btn = document.createElement("button");
+        btn.className = "copyBtn";
+        btn.textContent = "Copy";
+        btn.addEventListener("click", () => copyText(toBlock(it)));
+
+        row.appendChild(meta);
+        row.appendChild(btn);
+        card.appendChild(row);
+        elList.appendChild(card);
+      });
+
+      // update allText preview based on filtered list
+      elAllText.value = filtered.map(toBlock).join("\n\n");
+    }
+
+    document.getElementById("copyAll").addEventListener("click", async () => {
+      await copyText(elAllText.value);
+      showToast("Copied all ✅");
+    });
+
+    elSearch.addEventListener("input", (e) => render(e.target.value));
+
+    // initial render
+    render();
+  </script>
+</body>
+</html>
