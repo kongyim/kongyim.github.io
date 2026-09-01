@@ -1,0 +1,75 @@
+window.PRAGUE_DATA = {
+  trip: {
+    title: "布拉格 4日3夜家庭旅行",
+    dates: "2026年9月2–5日",
+    hotel: "Golden Angel Prague · Celetná 29",
+    updated: "2026-09-01"
+  },
+  days: [
+    { id: 1, short: "Day 1", date: "9月2日 · 星期三", title: "落機＋Vltava 夜遊河", color: "#355c7d", summary: "抵達、入住 Old Town、Blue hour 遊河。", order:["airport","hotel","old-town","cruise","astro","charles"] },
+    { id: 2, short: "Day 2", date: "9月3日 · 星期四", title: "Old Town＋Cafe Imperial＋購物", color: "#c4513b", summary: "古城地標、特色建築、Cafe Imperial 及 Republic Square。", order:["hotel","astro","old-town","tyn","black-madonna","manufaktura","botanicus","material","havel","paul","idiom","trdelnik","powder","municipal","imperial","republic","havlikova","palladium","bata","dm","wenceslas","vietfood"] },
+    { id: 3, short: "Day 3", date: "9月4日 · 星期五", title: "Castle＋Malá Strana＋Charles Bridge", color: "#176b69", summary: "城堡區、河西岸特色景點、查理大橋。", order:["hotel","starbucks-castle","castle","st-vitus","mash-hana","local-artists","lennon","kampa","peeing","alley","gingerbread","prava-kuze","porks","charles","nepomuk","deelive","trdelnik","idiom"] },
+    { id: 4, short: "Day 4", date: "9月5日 · 星期六", title: "最後補買＋機場", color: "#66845c", summary: "只留酒店附近，11:00 左右出發去機場。", order:["hotel","old-town","astro","havel","day4-shopping","manufaktura","bata","dm","wenceslas","palladium","powder","airport"] }
+  ],
+  categories: {
+    sight: { label: "景點", icon: "◎" },
+    food: { label: "餐飲", icon: "◐" },
+    shopping: { label: "購物／手信", icon: "◇" },
+    transport: { label: "交通", icon: "→" },
+    stay: { label: "住宿", icon: "⌂" }
+  },
+  places: [
+    { id:"hotel", name:"Golden Angel Prague", zh:"酒店／行程基地", days:[1,2,3,4], category:"stay", area:"Old Town", lat:50.08731, lng:14.42478, time:"每日", duration:"—", priority:"base", image:"old_town.webp", description:"位於 Celetná 29，Old Town Square、Powder Tower 都可步行到達。" },
+    { id:"airport", name:"Václav Havel Airport Prague", zh:"布拉格機場", days:[1,4], category:"transport", area:"Airport", lat:50.10083, lng:14.26318, time:"Day 1 16:40／Day 4 12:00", timeByDay:{1:"16:40",4:"12:00"}, duration:"—", image:"airport.webp", description:"Day 1 建議 Uber／Taxi 趕 20:00 遊河；公共交通可搭 59 再轉 Metro A。" },
+    { id:"cruise", name:"Prague Boats／Vltava Cruise", zh:"伏爾塔瓦河遊船", days:[1], category:"sight", area:"Vltava", lat:50.09171, lng:14.41645, time:"20:00", duration:"約 50 分鐘", priority:"must", image:"vltava_night.webp", description:"日落後 Blue hour 上船，可睇 Charles Bridge、Castle 及河岸夜景；航班延誤可改 21:00。" },
+
+    { id:"astro", name:"Prague Astronomical Clock", zh:"布拉格天文鐘", days:[1,2,4], category:"sight", area:"Old Town", lat:50.08701, lng:14.42076, time:"Day 2 · 09:00", timeByDay:{1:"21:00 後",2:"09:00",4:"08:30"}, duration:"20–30 分鐘", priority:"must", image:"astronomical_clock.webp", description:"Old Town 經典地標。早上 08:45 左右到，人流較少；09:00 可睇整點表演。" },
+    { id:"old-town", name:"Old Town Square", zh:"老城廣場", days:[1,2,4], category:"sight", area:"Old Town", lat:50.08747, lng:14.42120, time:"早上／夜晚", timeByDay:{1:"18:20／21:00",2:"09:00",4:"08:30"}, duration:"30–45 分鐘", priority:"must", image:"old_town.webp", description:"布拉格古城中心，天文鐘、Týn Church 及街景集中於此。" },
+    { id:"tyn", name:"Church of Our Lady before Týn", zh:"泰恩教堂", days:[2], category:"sight", area:"Old Town", lat:50.08784, lng:14.42293, time:"09:15", duration:"15 分鐘", image:"tyn_church.webp", description:"雙尖塔是 Old Town 天際線主角；今次以外圍影相為主。" },
+    { id:"black-madonna", name:"House of the Black Madonna", zh:"黑色聖母之屋／燈泡形樓梯", days:[2], category:"sight", area:"Old Town", lat:50.08699, lng:14.42541, time:"09:30", duration:"20–40 分鐘", priority:"special", image:"black_madonna_staircase.webp", description:"捷克立體主義建築代表作。由下向上影，樓梯呈燈泡／梨形輪廓；內有 Czech Cubism 展覽及 Grand Café Orient。" },
+    { id:"manufaktura", name:"Manufaktura", zh:"捷克護膚手信", days:[2,4], category:"shopping", area:"Old Town", lat:50.08580, lng:14.42055, time:"購物時段", duration:"20–30 分鐘", image:"manufaktura_beer_shampoo.webp", description:"捷克天然護膚品牌；啤酒、玫瑰＋溫泉鹽及迷你禮盒最適合做手信。", souvenir:true },
+    { id:"botanicus", name:"Botanicus Ungelt", zh:"草本天然護理", days:[2], category:"shopping", area:"Old Town", lat:50.08765, lng:14.42405, time:"10:00 後", duration:"20 分鐘", image:"botanicus_oil.webp", description:"草本護膚、香皂、按摩油及洗頭水；風格自然樸實。", souvenir:true },
+    { id:"material", name:"Material Glass Design Store", zh:"波希米亞玻璃設計店", days:[2], category:"shopping", area:"Old Town", lat:50.08756, lng:14.42389, time:"10:00 後", duration:"20 分鐘", image:"glass.webp", description:"設計感玻璃器皿及裝飾；購買前先考慮易碎程度與行李空間。" },
+    { id:"havel", name:"Havel’s Market", zh:"哈維爾市集", days:[2,4], category:"shopping", area:"Old Town", lat:50.08518, lng:14.42256, time:"10:15／Day 4 補買", timeByDay:{2:"10:15",4:"09:00"}, duration:"30 分鐘", image:"havel_market.webp", description:"水果、紀念品及傳統市集氣氛；適合順路行，不必預太長時間。" },
+    { id:"paul", name:"PAUL", zh:"麵包咖啡小休", days:[2], category:"food", area:"Old Town", lat:50.08628, lng:14.42449, time:"上午", duration:"15–25 分鐘", image:"paul.webp", description:"Old Town 購物途中補咖啡或麵包的小休點。" },
+    { id:"idiom", name:"Idiom Book Tower", zh:"書本隧道", days:[2,3], category:"sight", area:"Old Town", lat:50.08763, lng:14.41696, time:"10:50／Day 3 buffer", timeByDay:{2:"10:50",3:"17:00 buffer"}, duration:"視乎排隊", priority:"special", image:"idiom_tower.webp", description:"鏡面與書本形成無限隧道。排隊少於 30 分鐘先入；太多人可 Day 3 17:00 後補。" },
+    { id:"trdelnik", name:"Trdelník & Coffee", zh:"煙囪卷特色小食", days:[2,3], category:"food", area:"Old Town North", lat:50.09004, lng:14.41806, time:"甜點小休", timeByDay:{2:"甜點小休",3:"過橋後補食"}, duration:"20 分鐘", image:"trdelnik_roll.webp", description:"圓筒烤製甜麵包，常見糖、肉桂、果仁或雪糕版本。建議先買一個 share。" },
+    { id:"powder", name:"Powder Tower", zh:"火藥塔", days:[2,4], category:"sight", area:"Republic Square", lat:50.08724, lng:14.42781, time:"12:00／任何時間", duration:"15–25 分鐘", image:"powder_tower.webp", description:"酒店附近的哥德式黑塔；由 Celetná 行去 Cafe Imperial 時順路。" },
+    { id:"municipal", name:"Municipal House", zh:"市民會館", days:[2], category:"sight", area:"Republic Square", lat:50.08749, lng:14.42837, time:"12:15／17:30", duration:"15–30 分鐘", image:"municipal_house.webp", description:"新藝術風格建築，與 Powder Tower、Republic Square 同組。" },
+    { id:"imperial", name:"Café Imperial", zh:"華麗新藝術餐廳", days:[2], category:"food", area:"Republic Square", lat:50.08982, lng:14.43265, time:"13:00／13:30", duration:"90 分鐘", priority:"book", image:"cafe_imperial.webp", description:"馬賽克內裝本身就是景點；建議預先訂枱。" },
+    { id:"republic", name:"Náměstí Republiky", zh:"共和國廣場", days:[2], category:"sight", area:"Republic Square", lat:50.08817, lng:14.42942, time:"14:30", duration:"10 分鐘", image:"republic_square.webp", description:"Cafe Imperial 與 Palladium 之間的步行節點。" },
+    { id:"havlikova", name:"HAVLÍKOVÁ natural APOTEK", zh:"天然護膚／藥妝", days:[2], category:"shopping", area:"Republic Square", lat:50.08930, lng:14.42955, time:"下午", duration:"20 分鐘", image:"botanicus_soap.webp", description:"天然護膚及美容產品；與 Palladium、dm、Baťa 集中同一下午。" },
+    { id:"palladium", name:"Palladium Prague", zh:"大型購物中心", days:[2,4], category:"shopping", area:"Republic Square", lat:50.08943, lng:14.42964, time:"14:30–17:30", timeByDay:{2:"14:30–17:30",4:"最後補買"}, duration:"彈性", image:"republic_square.webp", description:"多層商場，適合集中購物、補貨及雨天備案。" },
+    { id:"bata", name:"Baťa", zh:"捷克鞋履與皮革配件", days:[2,4], category:"shopping", area:"Republic Square／New Town", lat:50.08331, lng:14.42544, time:"下午／Day 4 補買", timeByDay:{2:"下午",4:"09:15 補買"}, duration:"20–40 分鐘", image:"bata.webp", description:"捷克鞋履老牌；手信可留意銀包、卡片套與皮帶。每件產品仍要查看材質及產地標籤。", souvenir:true },
+    { id:"dm", name:"dm drogerie markt", zh:"平價藥妝／大量手信", days:[2,4], category:"shopping", area:"Republic Square", lat:50.08945, lng:14.42975, time:"下午／Day 4 補買", timeByDay:{2:"下午",4:"09:15 補買"}, duration:"30–45 分鐘", image:"dm_products.webp", description:"德國連鎖，但 Balea、alverde、dmBio 價錢親民；護手霜及潤唇膏適合大量派。", souvenir:true },
+    { id:"wenceslas", name:"Wenceslas Square", zh:"瓦茨拉夫廣場", days:[2,4], category:"sight", area:"New Town", lat:50.08113, lng:14.42549, time:"18:30／Day 4 補買", timeByDay:{2:"18:30",4:"09:15"}, duration:"45–90 分鐘", image:"wenceslas.webp", description:"商業大道、夜間街景及最後補買區域。" },
+    { id:"vietfood", name:"VIETFOOD", zh:"越南菜晚餐候補", days:[2], category:"food", area:"New Town", lat:50.08103, lng:14.42585, time:"晚餐候補", duration:"60 分鐘", image:"vietfood.webp", description:"想轉口味可食越南菜；Cafe Imperial 午餐太飽就留作候補。座標為 Wenceslas 一帶參考。" },
+
+    { id:"starbucks-castle", name:"Starbucks Prague Castle", zh:"城堡景觀位", days:[3], category:"food", area:"Hradčany", lat:50.08987, lng:14.39716, time:"09:00", duration:"15–30 分鐘", image:"castle_view.webp", description:"咖啡是 bonus，Hradčany 廣場及高位景觀才是主角。" },
+    { id:"castle", name:"Prague Castle", zh:"布拉格城堡", days:[3], category:"sight", area:"Hradčany", lat:50.09110, lng:14.40163, time:"09:15–11:00", duration:"約 2 小時", priority:"must", image:"prague_castle.webp", description:"城堡庭院、外圍及 Golden Lane。Old Royal Palace 由 2026-09-04 起因 Crown Jewels 準備工作關閉。" },
+    { id:"st-vitus", name:"St Vitus Cathedral", zh:"聖維特主教座堂", days:[3], category:"sight", area:"Hradčany", lat:50.09089, lng:14.40049, time:"上午", duration:"45–60 分鐘", priority:"must", image:"st_vitus.webp", description:"哥德式教堂內外都震撼，是城堡區主角。" },
+    { id:"mash-hana", name:"Mash Hana", zh:"日式午餐", days:[3], category:"food", area:"Hradčany／Praha 6", lat:50.09722, lng:14.40751, time:"11:30", duration:"60 分鐘", image:"castle_view.webp", description:"星期五才有午餐時段，故安排 Day 3；食完再落 Malá Strana。" },
+    { id:"local-artists", name:"LOCAL ARTISTS", zh:"本地創作者手信店", days:[3], category:"shopping", area:"Malá Strana", lat:50.08710, lng:14.40389, time:"下午", duration:"20–30 分鐘", image:"charles_bridge.webp", description:"Karmelitská 24 的 gift shop。可留意 Prague 插畫、小版畫、明信片、首飾及小型手作；庫存隨創作者改變。", souvenir:true },
+    { id:"lennon", name:"Lennon Wall", zh:"藍儂牆", days:[3], category:"sight", area:"Malá Strana", lat:50.08620, lng:14.40606, time:"13:00", duration:"15 分鐘", image:"lennon_wall.webp", description:"色彩最鮮明的打卡位，短時間停留已足夠。" },
+    { id:"kampa", name:"Kampa", zh:"康帕島／河邊散步", days:[3], category:"sight", area:"Malá Strana", lat:50.08472, lng:14.40774, time:"下午", duration:"30–45 分鐘", image:"kampa.webp", description:"沿河與運河散步，可望 Charles Bridge，節奏較 Old Town 悠閒。" },
+    { id:"peeing", name:"Peeing Characters", zh:"David Černý 雕塑", days:[3], category:"sight", area:"Malá Strana", lat:50.08808, lng:14.41022, time:"下午", duration:"5–10 分鐘", image:"peeing.webp", description:"古怪幽默的機械雕塑，與最窄小巷相隔幾分鐘。" },
+    { id:"alley", name:"Prague’s Narrowest Alley", zh:"有交通燈的最窄小巷", days:[3], category:"sight", area:"Malá Strana", lat:50.08794, lng:14.40909, time:"下午", duration:"5–10 分鐘", image:"peeing.webp", description:"窄巷設有行人交通燈；適合順路看，不值得專程跨區。" },
+    { id:"gingerbread", name:"Gingerbread Museum／Gingerbread Man", zh:"薑餅手信", days:[3], category:"shopping", area:"Malá Strana", lat:50.08839, lng:14.40050, time:"下午", duration:"20 分鐘", image:"gingerbread.webp", description:"薑餅、甜點及可愛手信；營業時間到場前再確認。" },
+    { id:"prava-kuze", name:"PRAVA KUZE Leather", zh:"皮具店候選", days:[3], category:"shopping", area:"Malá Strana／收藏位置", lat:50.08734, lng:14.40472, time:"下午", duration:"20–30 分鐘", image:"leather_wallet.webp", description:"可留意銀包、卡片套、皮帶及小袋。未有可靠官方目錄；現場要檢查 genuine leather、產地、車線及拉鏈。座標為行程區域參考。", souvenir:true, approximate:true },
+    { id:"porks", name:"Pork’s Mostecká", zh:"捷克豬肉料理", days:[3], category:"food", area:"Malá Strana", lat:50.08749, lng:14.40605, time:"Early dinner 候補", duration:"45–75 分鐘", image:"gingerbread.webp", description:"近 Charles Bridge 西岸橋頭；Mash Hana 食得少可 early dinner，否則飲杯嘢便走。" },
+    { id:"charles", name:"Charles Bridge", zh:"查理大橋", days:[1,3], category:"sight", area:"Charles Bridge", lat:50.08648, lng:14.41144, time:"16:00／夜景二刷", timeByDay:{1:"遊河觀景／夜景",3:"16:00"}, duration:"30–45 分鐘", priority:"must", image:"charles_bridge.webp", description:"由 Malá Strana 行回 Old Town 的大合照位；橋本身約 516m。" },
+    { id:"nepomuk", name:"St John of Nepomuk Statue", zh:"橋上聖約翰雕像", days:[3], category:"sight", area:"Charles Bridge", lat:50.08658, lng:14.40987, time:"過橋途中", duration:"5 分鐘", image:"nepomuk.webp", description:"Charles Bridge 上最多人停留的雕像之一。" },
+    { id:"deelive", name:"Deelive Design Store／deelive", zh:"當代捷克設計手信", days:[3], category:"shopping", area:"Vltava East Bank", lat:50.08205, lng:14.41323, time:"過橋後／彈性", duration:"30–45 分鐘", image:"deelive_store.webp", description:"Smetanovo nábřeží 334/4。Design Store 是多品牌集合店；deelive 亦是自家產品線。Czech glass 首飾、小花瓶及陶瓷最有送禮感。", souvenir:true },
+
+    { id:"day4-shopping", name:"Na Příkopě Shopping Walk", zh:"最後補買路線", days:[4], category:"shopping", area:"Old Town／New Town", lat:50.08489, lng:14.42574, time:"08:30–10:15", duration:"約 90 分鐘", image:"wenceslas.webp", description:"Old Town Square → Havel Market → Na Příkopě → Wenceslas。10:15 返回酒店。" }
+  ],
+  souvenirs: [
+    { id:"manufaktura", name:"Manufaktura", type:"捷克天然護膚", image:"manufaktura_beer_shampoo.webp", intro:"包裝完整、捷克感明顯，是最容易送人的選擇。", signature:["原創啤酒洗頭水","玫瑰＋溫泉鹽護手霜","旅行裝／迷你禮盒"], forWhom:"同事、女性朋友、屋企人", tip:"液體超過 100ml 要寄艙。", official:"https://manufaktura.cz/" },
+    { id:"botanicus", name:"Botanicus", type:"草本天然護理", image:"botanicus_oil.webp", intro:"植物、香草和樸實天然風格，適合重視氣味及成分的人。", signature:["草本皂／洗頭水","小樽按摩油","薄荷或香草護理品"], forWhom:"長輩、護膚朋友", tip:"固體皂最易帶；買之前先試香味。", official:"https://botanicus.cz/" },
+    { id:"local-artists", name:"LOCAL ARTISTS", type:"本地創作者作品", image:"old_town.webp", intro:"非連鎖 gift shop，作品及庫存會隨創作者變動。", signature:["Prague 小版畫／插畫","明信片與紙品","小型首飾／手作"], forWhom:"鍾意獨特、藝術感的人", tip:"優先買有作者名、細件及真正喜歡的作品。" },
+    { id:"deelive", name:"Deelive Design Store／deelive", type:"當代捷克設計", image:"deelive_store.webp", intro:"集合捷克設計師作品；deelive 同時是店內自家品牌。", signature:["Czech glass 首飾","小花瓶／家品","陶瓷杯、紙品、設計師配件"], forWhom:"設計迷、重要朋友", tip:"價錢較高；行李有限選耳環或細件玻璃。", official:"https://www.deelive.cz/" },
+    { id:"prava-kuze", name:"PRAVA KUZE Leather", type:"皮具專門店方向", image:"leather_wallet.webp", intro:"可留意銀包、卡片套、皮帶與小袋；官方產品資料有限。", signature:["細銀包／卡片套","皮帶","小斜揹袋／鎖匙扣"], forWhom:"男性、實用型收禮者", tip:"店名不等於捷克製；檢查真皮標籤、產地及造工。" },
+    { id:"bata", name:"Baťa", type:"捷克鞋履與皮革配件", image:"bata.webp", intro:"捷克老牌大型品牌，產品與售後較標準化。", signature:["真皮鞋／短靴","銀包／卡片套","皮帶／小手袋"], forWhom:"屋企人、男性、實用型收禮者", tip:"銀包或皮帶比鞋容易送；每件仍要看材質與產地。", official:"https://www.bata.com/cz/" },
+    { id:"dm", name:"dm drogerie markt", type:"平價藥妝與自家品牌", image:"dm_products.webp", intro:"德國連鎖而非捷克品牌，但價錢親民、選擇多，適合大量手信。", signature:["Balea 護手霜／潤唇膏／沖涼液","alverde 天然彩妝／護膚","dmBio 茶包／小食"], forWhom:"同事、街坊、大量分發", tip:"選細件、輕身、不易漏的產品。", official:"https://www.dm.cz/" }
+  ]
+};

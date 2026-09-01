@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-HK">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1f2927">
+  <meta name="description" content="布拉格 4日3夜家庭旅行：每日行程、互動地圖、景點及手信攻略。">
+  <meta property="og:title" content="布拉格家庭旅行 · Prague 2026">
+  <meta property="og:description" content="行程、互動地圖、景點分類及手信攻略。">
+  <meta property="og:image" content="web-assets/charles_bridge.webp">
+  <title>布拉格家庭旅行 · Prague 2026</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://tile.openstreetmap.org">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#itinerary" aria-label="返回行程首頁">
+      <span class="brand-mark">P</span>
+      <span><strong>PRAGUE</strong><small>2–5 SEP 2026</small></span>
+    </a>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">選單</button>
+    <nav class="main-nav" id="main-nav" aria-label="主要頁面">
+      <button class="nav-link is-active" data-view="itinerary">每日行程</button>
+      <button class="nav-link" data-view="map">互動地圖</button>
+      <button class="nav-link" data-view="places">全部地點</button>
+      <button class="nav-link" data-view="souvenirs">手信攻略</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="eyebrow">FAMILY TRIP PLANNER</p>
+        <h1 id="hero-title">布拉格<br>4日3夜家庭旅行</h1>
+        <p class="hero-sub">Old Town 做基地 · 每日分區行 · 地圖與手信攻略</p>
+        <div class="hero-stats">
+          <span><b>4</b> 日行程</span>
+          <span><b id="place-count">—</b> 個地點</span>
+          <span><b>7</b> 個手信選擇</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="toolbar" id="toolbar" aria-label="篩選地點">
+      <div class="day-filters" id="day-filters"></div>
+      <label class="select-wrap"><span>分類</span><select id="category-filter"><option value="all">全部分類</option></select></label>
+      <label class="search-wrap"><span class="sr-only">搜尋地點</span><input id="search-input" type="search" placeholder="搜尋景點、餐廳、商店…"></label>
+      <button class="clear-button" id="clear-filters" type="button">重設</button>
+    </section>
+
+    <section class="view is-active" id="view-itinerary" data-view-panel="itinerary">
+      <div class="section-heading">
+        <p class="eyebrow dark">ITINERARY</p>
+        <h2>每日行程</h2>
+        <p>揀日子睇時間線；卡片可直接開 Google Maps 導航。</p>
+      </div>
+      <div class="day-tabs" id="itinerary-tabs"></div>
+      <div class="day-summary" id="day-summary"></div>
+      <div class="timeline" id="timeline"></div>
+    </section>
+
+    <section class="view map-view" id="view-map" data-view-panel="map" hidden>
+      <div class="section-heading compact">
+        <p class="eyebrow dark">MAP</p>
+        <h2>所有地點，一張圖睇晒</h2>
+        <p>按日子或分類篩選；點 marker 可睇介紹及導航。</p>
+      </div>
+      <div class="map-layout">
+        <aside class="map-results" id="map-results" aria-label="地圖結果"></aside>
+        <div id="map" aria-label="布拉格景點互動地圖"></div>
+      </div>
+      <p class="map-credit">地圖資料 © OpenStreetMap contributors。標示「約」的商店位置只作區域參考。</p>
+    </section>
+
+    <section class="view" id="view-places" data-view-panel="places" hidden>
+      <div class="section-heading">
+        <p class="eyebrow dark">PLACES</p>
+        <h2>全部景點、餐廳與購物點</h2>
+        <p id="places-result-count"></p>
+      </div>
+      <div class="places-grid" id="places-grid"></div>
+      <div class="empty-state" id="empty-state" hidden>搵唔到符合條件嘅地點，試吓重設篩選。</div>
+    </section>
+
+    <section class="view" id="view-souvenirs" data-view-panel="souvenirs" hidden>
+      <div class="souvenir-hero">
+        <p class="eyebrow">SOUVENIR GUIDE</p>
+        <h2>手信攻略</h2>
+        <p>由捷克護膚、本地藝術，到設計家品、皮具同平價藥妝。</p>
+      </div>
+      <div class="souvenir-shortlist" id="souvenir-shortlist"></div>
+      <div class="souvenir-grid" id="souvenir-grid"></div>
+      <div class="packing-note">
+        <strong>行李提示</strong>
+        <span>玻璃／陶瓷用衫包實放手提；液體超過 100ml 要寄艙；皮具保留單據及材質標籤。</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Prague Family Trip · 資料整理至 2026-09-01</span>
+    <span>營業時間、船班及封閉安排以官方即日公布為準。</span>
+  </footer>
+
+  <template id="place-card-template">
+    <article class="place-card">
+      <div class="place-image-wrap"><img class="place-image" alt="" loading="lazy"><span class="place-day"></span></div>
+      <div class="place-body">
+        <div class="place-meta"><span class="place-category"></span><span class="place-area"></span></div>
+        <h3 class="place-title"></h3>
+        <p class="place-zh"></p>
+        <p class="place-description"></p>
+        <div class="place-footer"><span class="place-time"></span><a class="map-link" target="_blank" rel="noopener">Google Maps ↗</a></div>
+      </div>
+    </article>
+  </template>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
