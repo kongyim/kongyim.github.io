@@ -51,7 +51,7 @@
       <article class="timeline-item">
         <div class="timeline-time">${escapeHtml(timeForDay(place, day.id))}</div>
         <div class="timeline-card">
-          <img src="web-assets/${escapeHtml(place.image)}" alt="${escapeHtml(place.name)}" loading="lazy">
+          <img src="web-assets/${escapeHtml(place.image)}" alt="${escapeHtml(place.name)}" loading="lazy"${place.imagePosition ? ` style="object-position:${escapeHtml(place.imagePosition)}"` : ""}>
           <div class="timeline-content">
             <div class="meta-row"><span class="meta-badge">${category(place.category).icon} ${category(place.category).label}</span><span class="meta-badge">${escapeHtml(place.area)}</span>${place.duration ? `<span class="meta-badge">${escapeHtml(place.duration)}</span>` : ""}</div>
             <h3>${escapeHtml(place.name)}</h3>
@@ -69,6 +69,7 @@
     const image = $(".place-image", fragment);
     image.src = `web-assets/${place.image}`;
     image.alt = place.name;
+    if (place.imagePosition) image.style.objectPosition = place.imagePosition;
     $(".place-day", fragment).textContent = dayLabel(place);
     $(".place-category", fragment).textContent = `${category(place.category).icon} ${category(place.category).label}`;
     $(".place-area", fragment).textContent = place.area;
@@ -98,7 +99,7 @@
   }
 
   function popupHtml(place) {
-    return `<img class="popup-image" src="web-assets/${escapeHtml(place.image)}" alt=""><h3 class="popup-title">${escapeHtml(place.name)}</h3><div class="popup-sub">${escapeHtml(place.zh)}</div><p class="popup-text">${escapeHtml(place.description)}</p><a class="inline-link" href="${mapUrl(place)}" target="_blank" rel="noopener">Google Maps ↗</a>`;
+    return `<img class="popup-image" src="web-assets/${escapeHtml(place.image)}" alt=""${place.imagePosition ? ` style="object-position:${escapeHtml(place.imagePosition)}"` : ""}><h3 class="popup-title">${escapeHtml(place.name)}</h3><div class="popup-sub">${escapeHtml(place.zh)}</div><p class="popup-text">${escapeHtml(place.description)}</p><a class="inline-link" href="${mapUrl(place)}" target="_blank" rel="noopener">Google Maps ↗</a>`;
   }
 
   function initMap() {
@@ -122,7 +123,7 @@
       markers.set(place.id, marker);
       bounds.push([place.lat, place.lng]);
     });
-    $("#map-results").innerHTML = places.map(place => `<button class="map-result" data-map-place="${place.id}"><img src="web-assets/${escapeHtml(place.image)}" alt=""><span><strong>${escapeHtml(place.name)}</strong><small>${escapeHtml(place.zh)} · ${escapeHtml(place.area)}${place.approximate ? " · 約" : ""}</small></span></button>`).join("") || `<div class="empty-state">沒有符合條件的地點</div>`;
+    $("#map-results").innerHTML = places.map(place => `<button class="map-result" data-map-place="${place.id}"><img src="web-assets/${escapeHtml(place.image)}" alt=""${place.imagePosition ? ` style="object-position:${escapeHtml(place.imagePosition)}"` : ""}><span><strong>${escapeHtml(place.name)}</strong><small>${escapeHtml(place.zh)} · ${escapeHtml(place.area)}${place.approximate ? " · 約" : ""}</small></span></button>`).join("") || `<div class="empty-state">沒有符合條件的地點</div>`;
     if (bounds.length === 1) map.setView(bounds[0], 16);
     else if (bounds.length > 1) map.fitBounds(bounds, { padding: [30, 30], maxZoom: 16 });
     setTimeout(() => map.invalidateSize(), 40);
