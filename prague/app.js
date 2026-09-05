@@ -9,7 +9,7 @@
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
   const escapeHtml = value => String(value ?? "").replace(/[&<>'"]/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[char]));
   const category = id => data.categories[id] || { label: id, icon: "•" };
-  const mapUrl = place => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${place.name} Prague ${place.lat},${place.lng}`)}`;
+  const mapUrl = place => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.address ? `${place.name} ${place.address}` : `${place.name} Prague ${place.lat},${place.lng}`)}`;
   const dayLabel = place => place.days.length === 4 ? "每日" : place.days.map(day => `D${day}`).join(" · ");
   const firstDay = place => data.days.find(day => place.days.includes(day.id)) || data.days[0];
   const timeForDay = (place, dayId) => place.timeByDay?.[dayId] || place.time || "彈性";
@@ -131,7 +131,7 @@
 
   function renderSouvenirs() {
     const list = data.souvenirs;
-    $("#souvenir-shortlist").innerHTML = ["最穩陣：Manufaktura", "最天然：Botanicus", "最獨特：LOCAL ARTISTS", "最有設計感：Deelive", "男性實用：Baťa／PRAVA KUZE", "大量派：dm"].map(item => `<span class="shortlist-pill">${item}</span>`).join("");
+    $("#souvenir-shortlist").innerHTML = ["最穩陣：Manufaktura", "最天然：Botanicus", "最獨特：LOCAL ARTISTS", "最有設計感：Deelive", "男性實用：Baťa／PRAVA KUZE", "平價紀念品：Prague Vibes", "自選首飾：Prague Charm", "大量派：dm／BILLA"].map(item => `<span class="shortlist-pill">${item}</span>`).join("");
     $("#souvenir-grid").innerHTML = list.map(item => `
       <article class="souvenir-card" id="souvenir-${item.id}">
         <img src="web-assets/${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}">
