@@ -4,6 +4,25 @@
   let map;
   let markerLayer;
   const markers = new Map();
+  const analyticsViews = new Set(["itinerary", "map", "places", "souvenirs"]);
+  let lastTrackedView;
+
+  function trackEvent(name, parameters = {}) {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", name, { send_to: "G-12NT20J4Y5", ...parameters });
+    }
+  }
+
+  function trackItineraryDay() {
+    trackEvent(`view_itinerary_day_${state.itineraryDay}`);
+  }
+
+  function trackSectionView(view) {
+    if (lastTrackedView === view) return;
+    lastTrackedView = view;
+    trackEvent(`view_${view}`);
+    if (view === "itinerary") trackItineraryDay();
+  }
 
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -157,6 +176,7 @@
   }
 
   function switchView(view, updateHash = true) {
+    if (!analyticsViews.has(view)) return;
     state.view = view;
     $$('[data-view-panel]').forEach(panel => {
       const active = panel.dataset.viewPanel === view;
@@ -170,13 +190,17 @@
     if (view === "map") renderMap();
     if (view === "places") renderPlaces();
     if (updateHash) history.replaceState(null, "", `#${view}`);
+    trackSectionView(view);
     window.scrollTo({ top: $(".hero").offsetHeight + $(".site-header").offsetHeight, behavior: "smooth" });
   }
 
   function bindEvents() {
     $("#main-nav").addEventListener("click", event => {
       const button = event.target.closest("[data-view]");
-      if (button) switchView(button.dataset.view);
+      if (button) {
+        trackEvent("button_click", { button_name: `nav_${button.dataset.view}`, section: state.view });
+        switchView(button.dataset.view);
+      }
     });
     $("#menu-toggle").addEventListener("click", () => {
       const nav = $("#main-nav");
@@ -195,9 +219,14 @@
     $("#itinerary-tabs").addEventListener("click", event => {
       const button = event.target.closest("[data-itinerary-day]");
       if (!button) return;
-      state.itineraryDay = Number(button.dataset.itineraryDay);
+      const day = Number(button.dataset.itineraryDay);
+      if (!data.days.some(item => item.id === day)) return;
+      trackEvent("button_click", { button_name: `itinerary_day_${day}`, section: state.view });
+      const changed = state.itineraryDay !== day;
+      state.itineraryDay = day;
       $$(".day-tab").forEach(tab => tab.classList.toggle("is-active", tab === button));
       renderItinerary();
+      if (changed && state.view === "itinerary") trackItineraryDay();
     });
     $("#map-results").addEventListener("click", event => {
       const button = event.target.closest("[data-map-place]");
