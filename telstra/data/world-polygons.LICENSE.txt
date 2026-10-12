@@ -1,0 +1,8 @@
+Natural Earth — Admin 0 Countries, 1:50 million scale
+Public domain geographic data.
+Source: https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_50m_admin_0_countries.geojson
+Terms: https://www.naturalearthdata.com/about/terms-of-use/
+
+Derived by retaining Polygon/MultiPolygon coordinates, removing feature
+properties, and rounding longitude/latitude to four decimal places.
+Country outlines reflect Natural Earth's cartographic conventions.
